@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
+// 어떻게 할까:
+// gamecontroller한테 player의 위치를 넘겨서, 플레이어와 벽이 충돌한 두 점을 보내서,
+//vertical이랑 부딪힌 거면 y값 고정하고 쭉 돌려서 진행방향의 가장 가까운 collider가 다 같은지 본다.
 public class PlayerController : MonoBehaviour
 {
     public float gravity = 10f;
@@ -10,6 +14,8 @@ public class PlayerController : MonoBehaviour
     bool grounded = false;
     bool jump = false;
     bool facingRight = true;
+
+    public GameController gameController;
 
     public Rigidbody2D rb2d;
 
@@ -28,7 +34,9 @@ public class PlayerController : MonoBehaviour
     {
         if (c.gameObject.layer == LayerMask.NameToLayer("Horizontal Line"))
         {
-            grounded = true;
+            {
+                grounded = true;
+            }
         }
         if (c.gameObject.layer == LayerMask.NameToLayer("Horizontal Line"))
         {
@@ -37,6 +45,8 @@ public class PlayerController : MonoBehaviour
         if (c.gameObject.layer == LayerMask.NameToLayer("Vertical Line"))
         {
             vertical_line.Add(c);
+
+            // 퉁과 못 하는 box라면 x축 velocity를 0으로 해서 못 들어가게 막아야 함.
         }
     }
     void OnTriggerExit2D(Collider2D c)
