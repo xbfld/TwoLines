@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D rb2d;
 
+    ArrayList horizontal_line = new ArrayList();
+    ArrayList vertical_line = new ArrayList();
+
     // Use this for initialization
     void Start()
     {
@@ -26,6 +29,14 @@ public class PlayerController : MonoBehaviour
         if (c.gameObject.layer == LayerMask.NameToLayer("Horizontal Line"))
         {
             grounded = true;
+        }
+        if (c.gameObject.layer == LayerMask.NameToLayer("Horizontal Line"))
+        {
+            horizontal_line.Add(c);
+        }
+        if (c.gameObject.layer == LayerMask.NameToLayer("Vertical Line"))
+        {
+            vertical_line.Add(c);
         }
     }
     void OnTriggerExit2D(Collider2D c)
@@ -42,6 +53,8 @@ public class PlayerController : MonoBehaviour
         {
             jump = true;
         }
+        // TODO: do something with horizontal_line and vertical_line
+
     }
 
     void FixedUpdate()
