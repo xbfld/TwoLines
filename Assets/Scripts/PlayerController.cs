@@ -4,17 +4,19 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     public float gravity = 10f;
-    public float maxSpeed = 5f;
-    public float jumpForce = 1000f;
+    public float xSpeed = 10f;
+    public float maxSpeed = 100f;
+    public float jumpForce = 100f;
 
     bool grounded = false;
     bool jump = false;
     bool facingRight = true;
+    bool walled = false;
+    bool leftWalled = false;
+    bool rightWalled = false;
+    bool portable = false;
 
     public Rigidbody2D rb2d;
-
-    ArrayList horizontal_line = new ArrayList();
-    ArrayList vertical_line = new ArrayList();
 
     // Use this for initialization
     void Start()
@@ -24,26 +26,34 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
 
-    void OnTriggerEnter2D(Collider2D c)
+    void OnCollisionEnter2D(Collision2D c)
     {
         if (c.gameObject.layer == LayerMask.NameToLayer("Horizontal Line"))
         {
+            Debug.Log("Horizontal ENT");
             grounded = true;
-        }
-        if (c.gameObject.layer == LayerMask.NameToLayer("Horizontal Line"))
-        {
-            horizontal_line.Add(c);
         }
         if (c.gameObject.layer == LayerMask.NameToLayer("Vertical Line"))
         {
-            vertical_line.Add(c);
+            Debug.Log("Vertical ENT");
+            walled = true;
+            leftWalled = c.gameObject.transform.position.x > transform.position.x;
+            rightWalled = !leftWalled;
         }
     }
-    void OnTriggerExit2D(Collider2D c)
+    void OnCollisionExit2D(Collision2D c)
     {
         if (c.gameObject.layer == LayerMask.NameToLayer("Horizontal Line"))
         {
+            Debug.Log("Horizontal EXT");
             grounded = false;
+        }
+        if (c.gameObject.layer == LayerMask.NameToLayer("Vertical Line"))
+        {
+            Debug.Log("Vertical EXT");
+            walled = false;
+            leftWalled = false;
+            rightWalled = false;
         }
     }
 
@@ -51,16 +61,21 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && grounded)
         {
+            Debug.Log("Jump");
             jump = true;
         }
-        // TODO: do something with horizontal_line and vertical_line
+        if (Input.GetButtonDown("Fire1") && walled)
+        {
+            Debug.Log("Fire1");
+            portable = true;
+        }
 
     }
 
     void FixedUpdate()
     {
-        float h = Input.GetAxis("Horizontal");
-        float xv = h * maxSpeed;
+        float h = Input.GetAxisRaw("Horizontal");
+        float xv = h * xSpeed;
         float yv = rb2d.velocity.y - Time.deltaTime * gravity;
 
         if (grounded)
@@ -77,10 +92,12 @@ public class PlayerController : MonoBehaviour
         {
             yv = jumpForce;
             jump = false;
+            grounded = false;
         }
         xv = Mathf.Clamp(xv, -maxSpeed, maxSpeed);
         yv = Mathf.Clamp(yv, -maxSpeed, maxSpeed);
         rb2d.velocity = new Vector2(xv, yv);
+        //Debug.Log(rb2d.velocity);
     }
 
     void Flip()
