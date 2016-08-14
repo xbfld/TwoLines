@@ -230,17 +230,17 @@ public class DummyPlayerController : MonoBehaviour
     void TryHorizontal(int direction)
     {
 
-        float y = transform.GetChild(1).position.y;
-        float left = transform.GetChild(0).position.x;
-        float right = transform.GetChild(1).position.x;
+        float y = transform.GetChild(1-direction).position.y;
+        float left = Mathf.Min(transform.GetChild(0).position.x, transform.GetChild(1).position.x) ;
+        float right = Mathf.Max(transform.GetChild(0).position.x, transform.GetChild(1).position.x);
         int y2 = Mathf.RoundToInt(y * 2);
         int left2 = Mathf.RoundToInt(left * 2);
         int right2 = Mathf.RoundToInt(right * 2);
         GameObject[] hline = GameObject.FindGameObjectsWithTag("Horizontal Line");
-        GameObject left_nearest = null;
-        GameObject right_nearest = null;
-        GameObject left_nearest2 = null;
-        GameObject right_nearest2 = null;
+        LineRenderer left_nearest = null;
+        LineRenderer right_nearest = null;
+        LineRenderer left_nearest2 = null;
+        LineRenderer right_nearest2 = null;
         int left_nearest_y2 = direction * int.MaxValue;
         int right_nearest_y2 = direction * int.MaxValue;
         int left_nearest2_y2 = direction * int.MaxValue;
@@ -248,8 +248,8 @@ public class DummyPlayerController : MonoBehaviour
         foreach (var item in hline)
         {
             float _y = item.transform.position.y;
-            float _left = item.transform.GetChild(0).position.x;
-            float _right = item.transform.GetChild(1).position.x;
+            float _left = map.rowEdges[item.GetComponent<LineRenderer>()].st.x;
+            float _right = map.rowEdges[item.GetComponent<LineRenderer>()].end.x;
             int _y2 = Mathf.RoundToInt(_y * 2);
             int _left2 = Mathf.RoundToInt(_left * 2);
             int _right2 = Mathf.RoundToInt(_right * 2);
@@ -257,21 +257,21 @@ public class DummyPlayerController : MonoBehaviour
             if ((direction * y2 <= direction * _y2 && direction * _y2 < direction * right_nearest_y2) &&
                 (_left2 < right2 && right2 <= _right2))
             {
-                right_nearest = item;
+                right_nearest = item.GetComponent<LineRenderer>();
                 right_nearest_y2 = _y2;
             }
             if ((direction * y2 <= direction * _y2 && direction * _y2 < direction * left_nearest_y2) &&
                 (_left2 <= left2 && left2 < _right2))
             {
-                left_nearest = item;
+                left_nearest = item.GetComponent<LineRenderer>();
                 left_nearest_y2 = _y2;
             }
         }
         foreach (var item in hline)
         {
             float _y = item.transform.position.y;
-            float _left = item.transform.GetChild(0).position.x;
-            float _right = item.transform.GetChild(1).position.x;
+            float _left = map.rowEdges[item.GetComponent<LineRenderer>()].st.x;
+            float _right = map.rowEdges[item.GetComponent<LineRenderer>()].end.x;
             int _y2 = Mathf.RoundToInt(_y * 2);
             int _left2 = Mathf.RoundToInt(_left * 2);
             int _right2 = Mathf.RoundToInt(_right * 2);
@@ -279,13 +279,13 @@ public class DummyPlayerController : MonoBehaviour
             if ((direction * right_nearest_y2 < direction * _y2 && direction * _y2 < direction * right_nearest2_y2) &&
                 (_left2 < right2 && right2 <= _right2))
             {
-                right_nearest2 = item;
+                right_nearest2 = item.GetComponent<LineRenderer>();
                 right_nearest2_y2 = _y2;
             }
             if ((direction * left_nearest_y2 < direction * _y2 && direction * _y2 < direction * left_nearest2_y2) &&
                 (_left2 <= left2 && left2 < _right2))
             {
-                left_nearest2 = item;
+                left_nearest2 = item.GetComponent<LineRenderer>();
                 left_nearest2_y2 = _y2;
             }
         }
@@ -295,7 +295,7 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.up;
             if (hextend)
             {
-                Vextend(Vector3.up / 2, 1);
+                Vextend(direction * Vector3.up, 1);
                 hextend = false;
             }
         }
@@ -304,7 +304,7 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.up;
             if (hextend)
             {
-                Vextend(Vector3.up / 2, 1);
+                Vextend(direction * Vector3.up, 1);
                 hextend = false;
             }
         }
@@ -316,14 +316,16 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.up;
             if (hextend)
             {
-                Vextend(Vector3.up / 2, 1);
+                Vextend(direction * Vector3.up, 1);
                 hextend = false;
             }
             transform.position += new Vector3(0, (right_nearest2_y2 - right_nearest_y2) / 2.0f);
+            Debug.Log("wow");
             Debug.Log((right_nearest2_y2 - right_nearest_y2) / 2.0f);
             if (direction * right_nearest2_y2 > direction * Mathf.RoundToInt(transform.GetChild(direction+1).position.y * 2))
             {
-                Vextend(Vector3.up / 2, 1 + (right_nearest2_y2 - right_nearest_y2) / 2.0f);
+                Debug.Log(Mathf.Abs(right_nearest2_y2 - right_nearest_y2) / 4.0f);
+                Vextend(direction * Vector3.up, 1 + Mathf.Abs(right_nearest2_y2 - right_nearest_y2) / 4.0f);
                 hextend = true;
             }
         }
