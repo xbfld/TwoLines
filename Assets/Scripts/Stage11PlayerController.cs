@@ -3,9 +3,18 @@ using System.Collections;
 
 public class Stage11PlayerController : MonoBehaviour
 {
-	public GameObject GroundChecker;
+	Animator Anim;
+	bool IsMoving;
+	float NowTime;
+	float StartTime;
+	float StartXPosition;
 
 	Vector3 PlayerPos;
+
+	void Start()
+	{
+		Anim = GetComponent<Animator> ();
+	}
 
 	void Update()
 	{
@@ -55,15 +64,22 @@ public class Stage11PlayerController : MonoBehaviour
 
 	void NormalMove()
 	{
+
+		Anim.SetBool ("Move", IsMoving);
+
 		if (Input.GetKeyDown (KeyCode.RightArrow))
 		{
-			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
+			StartTime = Time.time;
+			StartXPosition = GetComponent<Transform> ().position.x;
+
 			GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
+			IsMoving = true;
 		}
 		else if (Input.GetKeyDown (KeyCode.LeftArrow))
 		{
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
 			GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
+			IsMoving = true;
 		}
 		else if (Input.GetKeyDown (KeyCode.UpArrow))
 		{
@@ -72,6 +88,10 @@ public class Stage11PlayerController : MonoBehaviour
 		else if (Input.GetKeyDown (KeyCode.DownArrow))
 		{
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y - 2, -1);
+		}
+		else
+		{
+			IsMoving = false;
 		}
 	}
 
