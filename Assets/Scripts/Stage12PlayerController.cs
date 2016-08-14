@@ -32,10 +32,14 @@ public class Stage12PlayerController : MonoBehaviour
 			Stop ();
 		else if (PosCheck (18, 6) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (3);
+		else if (PosCheck (18, 12) && Input.GetKeyDown (KeyCode.RightArrow))
+			GetComponent<Transform> ().position = new Vector3 (20, 10, -1);
 		else if (PosCheck (24, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (2);
 		else if (PosCheck (24, 6) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (3);
+		else if (PosCheck (24, 10) && Input.GetKeyDown (KeyCode.RightArrow))
+			GetComponent<Transform> ().position = new Vector3 (26, 2, -1);
 		else if (PosCheck (26, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
 		else if (PosCheck (30, 2) && Input.GetKeyDown (KeyCode.RightArrow))
