@@ -17,6 +17,15 @@ public class PlayerController : MonoBehaviour
     bool portable = false;
 
     public Rigidbody2D rb2d;
+    /// <summary>
+    /// linecast direction
+    ///    tl  tr
+    /// lt r - ㄱ rt
+    /// lb ㄴㅡㅢ rb
+    ///    bl  br
+    /// </summary>
+    GameObject tl, tr, bl, br, lt, lb, rt, rb;
+
 
     // Use this for initialization
     void Start()
@@ -56,7 +65,27 @@ public class PlayerController : MonoBehaviour
             rightWalled = false;
         }
     }
+    float getX(Transform t)
+    {
+        return t.position.x;
+    }
+    float getX(GameObject g)
+    {
+        return getX(g.transform);
+    }
+    float getY(Transform t)
+    {
+        return t.position.y;
+    }
+    float getY(GameObject g)
+    {
+        return getY(g.transform);
+    }
 
+    bool isAscOrder(float a, float b, float c)
+    {
+        return a < b && b < c;
+    }
     void Update()
     {
         if (Input.GetButtonDown("Jump") && grounded)
@@ -77,7 +106,37 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float xv = h * xSpeed;
         float yv = rb2d.velocity.y - Time.deltaTime * gravity;
+        GameObject[] hline = GameObject.FindGameObjectsWithTag("Horizontal Line");
+        Transform p_tl = transform.GetChild(0);
+        Transform p_tr = transform.GetChild(1);
+        Transform p_bl = transform.GetChild(2);
+        Transform p_br = transform.GetChild(3);
+        bl = null;
+        br = null;
+        foreach (var item in hline) // for all hline
+        {
+            float y = item.transform.position.y;
+            float left = item.transform.GetChild(0).position.x;
+            float right = item.transform.GetChild(1).position.x;
 
+            if (isAscOrder((bl ? getY(bl) : Mathf.NegativeInfinity), y, getY(p_bl)) &&
+                isAscOrder(left, getX(p_bl), right))
+            {
+                bl = item.gameObject;
+            }
+            if (isAscOrder((br ? getY(bl) : Mathf.NegativeInfinity), y, getY(p_br)) &&
+                isAscOrder(left, getX(p_br), right))
+            {
+                br = item.gameObject;
+            }
+
+            if (isAscOrder((br ? getY(bl) : Mathf.NegativeInfinity), y, getY(p_br)) &&
+                isAscOrder(left, getX(p_br), right))
+            {
+                br = item.gameObject;
+            }
+
+        }
         if (grounded)
         {
             yv = 0;
