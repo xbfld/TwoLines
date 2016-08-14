@@ -24,8 +24,12 @@ public class Stage13PlayerController : MonoBehaviour
 			RightTeleportMove (2);
 		else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
+		else if (PosCheck (8, 10) && Input.GetKeyDown (KeyCode.RightArrow))
+			GetComponent<Transform> ().position = new Vector3 (10, 6, -1);
 		else if (PosCheck (10, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (12);
+		else if (PosCheck (10, 6) && Input.GetKeyDown (KeyCode.RightArrow))
+			GetComponent<Transform> ().position = new Vector3 (12, 2, -1);
 		else if (PosCheck (22, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
 		else if (PosCheck (24, 8) && Input.GetKeyDown (KeyCode.RightArrow))
@@ -42,17 +46,29 @@ public class Stage13PlayerController : MonoBehaviour
 			RightTeleportMove (2);
 		else if (PosCheck (46, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (6);
+		else if (PosCheck (48, 12) && Input.GetKeyDown (KeyCode.RightArrow))
+			RightTeleportMove (2);
 		else if (PosCheck (52, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (2);
+		else if (PosCheck (52, 12) && Input.GetKeyDown (KeyCode.RightArrow))
+			GetComponent<Transform> ().position = new Vector3 (54, 2, -1);
 		else if (PosCheck (54, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
 		else if (PosCheck (58, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
 		else if (PosCheck (62, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			Stop ();
-		
+
+		else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			Stop ();
+		else if (PosCheck (6, 10) && Input.GetKeyDown (KeyCode.LeftArrow))
+			GetComponent<Transform> ().position = new Vector3 (4, 2, -1);
 		else if (PosCheck (8, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			Stop ();
+		else if (PosCheck (10, 6) && Input.GetKeyDown (KeyCode.LeftArrow))
+			Stop ();
+		else if (PosCheck (12, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (4);
 		else if (PosCheck (22, 8) && Input.GetKeyDown (KeyCode.LeftArrow))
 			Stop ();
 		else if (PosCheck (24, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
@@ -65,10 +81,22 @@ public class Stage13PlayerController : MonoBehaviour
 			LeftTeleportMove (8);
 		else if (PosCheck (36, 8) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (10);
+		else if (PosCheck (44, 12) && Input.GetKeyDown (KeyCode.LeftArrow))
+			GetComponent<Transform> ().position = new Vector3 (42, 2, -1);
 		else if (PosCheck (46, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (10);
 		else if (PosCheck (48, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (2);
+		else if (PosCheck (52, 12) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (2);
+		else if (PosCheck (54, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (6);
+		else if (PosCheck (56, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (2);
+		else if (PosCheck (60, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (4);
+		else if (PosCheck (64, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (4);
 
 		else if (PosCheck (8, 2) && Input.GetKeyDown (KeyCode.UpArrow))
 			UpTeleportMove (4);
@@ -99,27 +127,20 @@ public class Stage13PlayerController : MonoBehaviour
 
 		Anim.SetBool ("Move", IsMoving);
 
-		if(Grounded == false)
+		if (Input.GetKeyDown (KeyCode.RightArrow))
 		{
-			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y - 2, -1);
+			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
+			GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
+			IsMoving = true;
+		}
+		else if (Input.GetKeyDown (KeyCode.LeftArrow))
+		{
+			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
+			GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
+			IsMoving = true;
 		}
 		else
-		{
-			if (Input.GetKeyDown (KeyCode.RightArrow))
-			{
-				GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
-				GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
-				IsMoving = true;
-			}
-			else if (Input.GetKeyDown (KeyCode.LeftArrow))
-			{
-				GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
-				GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
-				IsMoving = true;
-			}
-			//GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y, -1);
 			IsMoving = false;
-		}
 	}
 
 	void RightTeleportMove(int a)
@@ -154,16 +175,5 @@ public class Stage13PlayerController : MonoBehaviour
 			return true;
 		else
 			return false;
-	}
-
-
-	public Transform GroundCheck;
-	public float GroundCheckRadius;
-	public LayerMask WhatIsGround;
-	private bool Grounded;
-
-	void FixedUpdate()
-	{
-		Grounded = Physics2D.OverlapCircle (GroundCheck.position, GroundCheckRadius, WhatIsGround);
 	}
 }
