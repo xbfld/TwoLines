@@ -11,7 +11,7 @@ public class NextLevel : MonoBehaviour {
     public NextLevel()
     {
         titleScene = "Title";
-        settingScene = "Settings";
+        settingScene = "Setting";
         levelSelect = "LevelSelect";
     }
 

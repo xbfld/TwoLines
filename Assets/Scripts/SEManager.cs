@@ -13,14 +13,22 @@ public class SEManager : MonoBehaviour {
         StageClear
     }
 
-    public List<AudioClip> SEList;
+    public List<AudioClip> ClipList;
+    public List<AudioSource> SEList;
+
+    public void Awake()
+    {
+       foreach(AudioClip c in ClipList)
+        {
+            AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+            audiosource.loop = false;
+            audiosource.clip = c;
+            SEList.Add(audiosource);
+        }
+    }
 
     public void Play(Sounds sounds)
     {
-        AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-        audiosource.loop = false;
-        audiosource.clip = SEList[(int)sounds];
-        audiosource.Play();
-        //Destroy(audiosource);
+        SEList[(int)sounds].Play();
     }
 }
