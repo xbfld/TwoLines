@@ -17,7 +17,8 @@ public class SEManager : MonoBehaviour {
 
     public void Play(Sounds sounds)
     {
-        AudioSource audiosource = GetComponent<AudioSource>();
+        AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+        audiosource.loop = false;
         audiosource.clip = SEList[(int)sounds];
         audiosource.Play();
     }
