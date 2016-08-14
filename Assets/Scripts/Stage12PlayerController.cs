@@ -39,12 +39,12 @@ public class Stage12PlayerController : MonoBehaviour
 		else if (PosCheck (26, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
 		else if (PosCheck (30, 2) && Input.GetKeyDown (KeyCode.RightArrow))
-			RightTeleportMove (6);
+			RightTeleportMove (2);
 		else if (PosCheck (30, 6) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (6);
-		else if (PosCheck (40, 2) && Input.GetKeyDown (KeyCode.RightArrow))
-			Stop ();
-		
+		else if (PosCheck (32, 2) && Input.GetKeyDown (KeyCode.RightArrow))
+			RightTeleportMove (4);
+
 		else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			Stop ();
 		else if (PosCheck (10, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
@@ -53,12 +53,16 @@ public class Stage12PlayerController : MonoBehaviour
 			LeftTeleportMove (2);
 		else if (PosCheck (18, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (6);
+		else if (PosCheck (24, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			Stop ();
 		else if (PosCheck (28, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (2);
 		else if (PosCheck (32, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (4);
+		else if (PosCheck (34, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (2);
 		else if (PosCheck (38, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
-			LeftTeleportMove (6);
+			LeftTeleportMove (4);
 		else if (PosCheck (42, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (4);
 
