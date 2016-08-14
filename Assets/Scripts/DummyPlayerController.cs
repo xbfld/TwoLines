@@ -14,6 +14,9 @@ public class DummyPlayerController : MonoBehaviour
     bool hextend = false;
 
     bool facingRight = true;
+
+    public float width;
+    public float height;
     // Use this for initialization
     void Start()
     {
@@ -178,7 +181,7 @@ public class DummyPlayerController : MonoBehaviour
             if ((direction * top_nearest_x2 < direction * _x2 && direction * _x2 < direction * top_nearest2_x2) &&
                 (_bottom2 < top2 && top2 <= _top2))
             {
-                top_nearest2 = item.GetComponent<LineRenderer>() ;
+                top_nearest2 = item.GetComponent<LineRenderer>();
                 top_nearest2_x2 = _x2;
             }
             if ((direction * bottom_nearest_x2 < direction * _x2 && direction * _x2 < direction * bottom_nearest2_x2) &&
@@ -194,7 +197,7 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.right;
             if (vextend)
             {
-                Hextend(Vector3.right / 2, direction);
+                Hextend(Vector3.right * width, direction);
                 vextend = false;
             }
         }
@@ -203,7 +206,7 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.right;
             if (vextend)
             {
-                Hextend(Vector3.right / 2, direction);
+                Hextend(Vector3.right * width, direction);
                 vextend = false;
             }
         }
@@ -215,14 +218,13 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.right;
             if (vextend)
             {
-                Hextend(Vector3.right / 2, direction);
+                Hextend(Vector3.right * width, direction);
                 vextend = false;
             }
             transform.position += new Vector3((top_nearest2_x2 - top_nearest_x2) / 2.0f, 0);
-            Debug.Log((top_nearest2_x2 - top_nearest_x2) / 2.0f);
             if (direction * top_nearest2_x2 > direction * Mathf.RoundToInt(transform.GetChild(0).position.x * 2))
             {
-                Hextend(Vector3.right / 2, direction * 1 + (top_nearest2_x2 - top_nearest_x2) / 2.0f);
+                Hextend(Vector3.right * width, direction * 1 + (top_nearest2_x2 - top_nearest_x2) / 4.0f / width);
                 vextend = true;
             }
         }
@@ -230,8 +232,8 @@ public class DummyPlayerController : MonoBehaviour
     void TryHorizontal(int direction)
     {
 
-        float y = transform.GetChild(1-direction).position.y;
-        float left = Mathf.Min(transform.GetChild(0).position.x, transform.GetChild(1).position.x) ;
+        float y = transform.GetChild(1 - direction).position.y;
+        float left = Mathf.Min(transform.GetChild(0).position.x, transform.GetChild(1).position.x);
         float right = Mathf.Max(transform.GetChild(0).position.x, transform.GetChild(1).position.x);
         int y2 = Mathf.RoundToInt(y * 2);
         int left2 = Mathf.RoundToInt(left * 2);
@@ -295,7 +297,7 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.up;
             if (hextend)
             {
-                Vextend(direction * Vector3.up, 1);
+                Vextend(height * direction * Vector3.up, 1);
                 hextend = false;
             }
         }
@@ -304,7 +306,7 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.up;
             if (hextend)
             {
-                Vextend(direction * Vector3.up, 1);
+                Vextend(height * direction * Vector3.up, 1);
                 hextend = false;
             }
         }
@@ -316,16 +318,16 @@ public class DummyPlayerController : MonoBehaviour
             transform.position += direction * Vector3.up;
             if (hextend)
             {
-                Vextend(direction * Vector3.up, 1);
+                Vextend(height * direction * Vector3.up, 1);
                 hextend = false;
             }
             transform.position += new Vector3(0, (right_nearest2_y2 - right_nearest_y2) / 2.0f);
             Debug.Log("wow");
             Debug.Log((right_nearest2_y2 - right_nearest_y2) / 2.0f);
-            if (direction * right_nearest2_y2 > direction * Mathf.RoundToInt(transform.GetChild(direction+1).position.y * 2))
+            if (direction * right_nearest2_y2 > direction * Mathf.RoundToInt(transform.GetChild(direction + 1).position.y * 2))
             {
                 Debug.Log(Mathf.Abs(right_nearest2_y2 - right_nearest_y2) / 4.0f);
-                Vextend(direction * Vector3.up, 1 + Mathf.Abs(right_nearest2_y2 - right_nearest_y2) / 4.0f);
+                Vextend(height * direction * Vector3.up, 1 + Mathf.Abs(right_nearest2_y2 - right_nearest_y2) / 4.0f / height);
                 hextend = true;
             }
         }
