@@ -58,10 +58,12 @@ public class Stage11PlayerController : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.RightArrow))
 		{
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
+			GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
 		}
 		else if (Input.GetKeyDown (KeyCode.LeftArrow))
 		{
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
+			GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
 		}
 		else if (Input.GetKeyDown (KeyCode.UpArrow))
 		{
@@ -76,11 +78,13 @@ public class Stage11PlayerController : MonoBehaviour
 	void RightTeleportMove(int a)
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + a + 2, PlayerPos.y, -1);
+		GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
 	}
 
 	void LeftTeleportMove(int a)
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - a - 2, PlayerPos.y, -1);
+		GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
 	}
 
 	void UpTeleportMove(int a)
