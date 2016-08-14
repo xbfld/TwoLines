@@ -42,6 +42,8 @@ public class Stage11PlayerController : MonoBehaviour
                 LeftTeleportMove(10);
             else if (PosCheck(26, 2) && Input.GetKeyDown(KeyCode.RightArrow))
                 RightTeleportMove(4);
+			else if (PosCheck(26, 10) && Input.GetKeyDown(KeyCode.LeftArrow))
+				GetComponent<Transform> ().position = new Vector3 (24, 2, -1);
             else if (PosCheck(28, 2) && Input.GetKeyDown(KeyCode.LeftArrow))
                 LeftTeleportMove(2);
             else if (PosCheck(28, 2) && Input.GetKeyDown(KeyCode.UpArrow))
