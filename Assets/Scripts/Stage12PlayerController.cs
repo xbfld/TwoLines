@@ -28,6 +28,10 @@ public class Stage12PlayerController : MonoBehaviour
 			RightTeleportMove (6);
 		else if (PosCheck (12, 6) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (2);
+		else if (PosCheck (12, 12) && Input.GetKeyDown (KeyCode.RightArrow))
+			GetComponent<Transform> ().position = new Vector3 (14, 2, -1);
+		else if (PosCheck (16, 2) && Input.GetKeyDown (KeyCode.RightArrow))
+			Stop ();
 		else if (PosCheck (18, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			Stop ();
 		else if (PosCheck (18, 6) && Input.GetKeyDown (KeyCode.RightArrow))
@@ -48,16 +52,22 @@ public class Stage12PlayerController : MonoBehaviour
 			RightTeleportMove (6);
 		else if (PosCheck (32, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
-
+		
 		else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			Stop ();
 		else if (PosCheck (10, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (4);
 		else if (PosCheck (12, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (2);
+		else if (PosCheck (16, 12) && Input.GetKeyDown (KeyCode.LeftArrow))
+			GetComponent<Transform> ().position = new Vector3 (14, 2, -1);
 		else if (PosCheck (18, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (6);
+		else if (PosCheck (20, 10) && Input.GetKeyDown (KeyCode.LeftArrow))
+			Stop ();
 		else if (PosCheck (24, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			Stop ();
+		else if (PosCheck (26, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			Stop ();
 		else if (PosCheck (28, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (2);
@@ -109,14 +119,6 @@ public class Stage12PlayerController : MonoBehaviour
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
 			GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
 			IsMoving = true;
-		}
-		else if (Input.GetKeyDown (KeyCode.UpArrow))
-		{
-			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y + 2, -1);
-		}
-		else if (Input.GetKeyDown (KeyCode.DownArrow))
-		{
-			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y - 2, -1);
 		}
 		else
 		{
