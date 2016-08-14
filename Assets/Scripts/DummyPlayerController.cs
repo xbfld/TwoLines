@@ -8,6 +8,8 @@ public class DummyPlayerController : MonoBehaviour
     int right_pressed = 0;
     int up_pressed = 0;
     int down_pressed = 0;
+    bool vextend = false;
+    bool hextend = false;
     // Use this for initialization
     void Start()
     {
@@ -85,7 +87,12 @@ public class DummyPlayerController : MonoBehaviour
             down_pressed = -1;
         }
     }
-
+    void Extend(Vector3 center, Vector3 scaler)
+    {
+        transform.position += Vector3.Scale(center, transform.localScale);
+        transform.localScale = scaler;
+        transform.position -= Vector3.Scale(center, scaler);
+    }
     void TryRightward()
     {
         //GameObject[] hline = GameObject.FindGameObjectsWithTag("Horizontal Line");
@@ -154,6 +161,11 @@ public class DummyPlayerController : MonoBehaviour
         if (!top_nearest && !bottom_nearest)
         {
             transform.position += Vector3.right;
+            if (vextend)
+            {
+                Extend(Vector3.right / 2, Vector3.one);
+                vextend = false;
+            }
         }
         // one of them are none
         //else if (top_nearest ^ bottom_nearest)
@@ -161,11 +173,14 @@ public class DummyPlayerController : MonoBehaviour
         //    return;
         //}
         // both are far enough
-        else if (x2+2 <= Mathf.Min(top_nearest_x2, bottom_nearest_x2))
+        else if (x2 + 2 <= Mathf.Min(top_nearest_x2, bottom_nearest_x2))
         {
-            Debug.Log(top_nearest_x2);
-            Debug.Log(x2);
             transform.position += Vector3.right;
+            if (vextend)
+            {
+                Extend(Vector3.right / 2, Vector3.one);
+                vextend = false;
+            }
         }
         // both are same line
         else if (top_nearest2 && bottom_nearest2 &&
@@ -173,6 +188,17 @@ public class DummyPlayerController : MonoBehaviour
             top_nearest2 == bottom_nearest2)
         {
             transform.position += Vector3.right;
+            if (vextend)
+            {
+                Extend(Vector3.right / 2, Vector3.one);
+                vextend = false;
+            }
+            transform.position += new Vector3((top_nearest2_x2 - top_nearest_x2) / 2.0f, 0);
+            if (top_nearest2_x2 > Mathf.RoundToInt(transform.GetChild(0).position.x * 2))
+            {
+                Extend(Vector3.right / 2, new Vector3(1 + (top_nearest2_x2 - top_nearest_x2) / 2.0f, 1, 1));
+                vextend = true;
+            }
         }
     }
 }
