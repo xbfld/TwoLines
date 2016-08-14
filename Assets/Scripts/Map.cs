@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 public class Map : MonoBehaviour {
     public List<Shape> shapes;
-    public List<Edge> colEdges;
-    public List<Edge> rowEdges;
+    public Dictionary<LineRenderer, Edge> colEdges;
+    public Dictionary<LineRenderer, Edge> rowEdges;
     public Material mat;
 
     // Use this for initialization
-    void Awake () {
-        colEdges = new List<Edge>();
-        rowEdges = new List<Edge>();
+    void Start () {
+        colEdges = new Dictionary<LineRenderer, Edge>();
+        rowEdges = new Dictionary<LineRenderer, Edge>();
 
-        foreach(Shape s in shapes)
+        foreach (Shape s in shapes)
         {
             foreach(Edge e in s.edges)
             {
@@ -21,20 +21,21 @@ public class Map : MonoBehaviour {
                 myLine.transform.position = e.st;
                 myLine.AddComponent<LineRenderer>();
                 LineRenderer lr = myLine.GetComponent<LineRenderer>();
+                lr.SetColors(Color.clear, Color.red);
+                lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+                lr.SetWidth(0.0f, 0.0f);
+                lr.SetPosition(0, e.st);
+                lr.SetPosition(1, e.end);
                 if (e.vertical)
                 {
-                    colEdges.Add(e);
+                    colEdges[lr] = e;
                     lr.gameObject.tag = "Vertical Line";
                 }
                 else
                 {
-                    rowEdges.Add(e);
+                    rowEdges[lr] = e;
                     lr.gameObject.tag = "Horizontal Line";
                 }
-                lr.SetColors(Color.clear, Color.clear);
-                lr.SetWidth(0.0f, 0.0f);
-                lr.SetPosition(0, e.st);
-                lr.SetPosition(1, e.end);
             }
         }
 	}

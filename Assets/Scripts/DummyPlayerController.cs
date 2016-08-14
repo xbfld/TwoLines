@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DummyPlayerController : MonoBehaviour
 {
+    public Map map;
     // 0 not pressed, 1 pressed, -1 recently pressed
     int left_pressed = 0;
     int right_pressed = 0;
@@ -95,7 +96,6 @@ public class DummyPlayerController : MonoBehaviour
     }
     void TryRightward()
     {
-        //GameObject[] hline = GameObject.FindGameObjectsWithTag("Horizontal Line");
         float x = transform.GetChild(3).position.x;
         float top = transform.GetChild(1).position.y;
         float bottom = transform.GetChild(3).position.y;
@@ -103,20 +103,19 @@ public class DummyPlayerController : MonoBehaviour
         int top2 = Mathf.RoundToInt(top * 2);
         int bottom2 = Mathf.RoundToInt(bottom * 2);
         GameObject[] vline = GameObject.FindGameObjectsWithTag("Vertical Line");
-        GameObject top_nearest = null;
-        GameObject bottom_nearest = null;
-        GameObject top_nearest2 = null;
-        GameObject bottom_nearest2 = null;
+        LineRenderer top_nearest = null;
+        LineRenderer bottom_nearest = null;
+        LineRenderer top_nearest2 = null;
+        LineRenderer bottom_nearest2 = null;
         int top_nearest_x2 = int.MaxValue;
         int bottom_nearest_x2 = int.MaxValue;
         int top_nearest2_x2 = int.MaxValue;
         int bottom_nearest2_x2 = int.MaxValue;
         foreach (var item in vline)
         {
-
             float _x = item.transform.position.x;
-            float _top = item.transform.GetChild(0).position.y;
-            float _bottom = item.transform.GetChild(1).position.y;
+            float _top = map.colEdges[item.GetComponent<LineRenderer>()].end.y;
+            float _bottom = map.colEdges[item.GetComponent<LineRenderer>()].st.y;
             int _x2 = Mathf.RoundToInt(_x * 2);
             int _top2 = Mathf.RoundToInt(_top * 2);
             int _bottom2 = Mathf.RoundToInt(_bottom * 2);
@@ -124,13 +123,13 @@ public class DummyPlayerController : MonoBehaviour
             if ((x2 <= _x2 && _x2 < top_nearest_x2) &&
                 (_bottom2 < top2 && top2 <= _top2))
             {
-                top_nearest = item;
+                top_nearest = item.GetComponent<LineRenderer>();
                 top_nearest_x2 = _x2;
             }
             if ((x2 <= _x2 && _x2 < bottom_nearest_x2) &&
                 (_bottom2 <= bottom2 && bottom2 < _top2))
             {
-                bottom_nearest = item;
+                bottom_nearest = item.GetComponent<LineRenderer>();
                 bottom_nearest_x2 = _x2;
             }
         }
@@ -138,8 +137,8 @@ public class DummyPlayerController : MonoBehaviour
         {
 
             float _x = item.transform.position.x;
-            float _top = item.transform.GetChild(0).position.y;
-            float _bottom = item.transform.GetChild(1).position.y;
+            float _top = map.colEdges[item.GetComponent<LineRenderer>()].end.y;
+            float _bottom = map.colEdges[item.GetComponent<LineRenderer>()].st.y;
             int _x2 = Mathf.RoundToInt(_x * 2);
             int _top2 = Mathf.RoundToInt(_top * 2);
             int _bottom2 = Mathf.RoundToInt(_bottom * 2);
@@ -147,13 +146,13 @@ public class DummyPlayerController : MonoBehaviour
             if ((top_nearest_x2 < _x2 && _x2 < top_nearest2_x2) &&
                 (_bottom2 < top2 && top2 <= _top2))
             {
-                top_nearest2 = item;
+                top_nearest2 = item.GetComponent<LineRenderer>();
                 top_nearest2_x2 = _x2;
             }
             if ((top_nearest_x2 < _x2 && _x2 < bottom_nearest2_x2) &&
                 (_bottom2 <= bottom2 && bottom2 < _top2))
             {
-                bottom_nearest2 = item;
+                bottom_nearest2 = item.GetComponent<LineRenderer>();
                 bottom_nearest2_x2 = _x2;
             }
         }
