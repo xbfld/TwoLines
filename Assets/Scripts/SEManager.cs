@@ -6,9 +6,9 @@ public class SEManager : MonoBehaviour {
 
     public enum Sounds
     {
-        Move1,
-        Move2,
         Blink,
+        Move1,
+        Move2,       
         Click,
         StageClear
     }
@@ -21,5 +21,6 @@ public class SEManager : MonoBehaviour {
         audiosource.loop = false;
         audiosource.clip = SEList[(int)sounds];
         audiosource.Play();
+        //Destroy(audiosource);
     }
 }
