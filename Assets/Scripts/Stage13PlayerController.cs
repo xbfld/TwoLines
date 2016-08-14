@@ -99,20 +99,25 @@ public class Stage13PlayerController : MonoBehaviour
 
 		Anim.SetBool ("Move", IsMoving);
 
-		if (Input.GetKeyDown (KeyCode.RightArrow))
+		if(Grounded == false)
 		{
-			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
-			GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
-			IsMoving = true;
-		}
-		else if (Input.GetKeyDown (KeyCode.LeftArrow))
-		{
-			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
-			GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
-			IsMoving = true;
+			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y - 2, -1);
 		}
 		else
 		{
+			if (Input.GetKeyDown (KeyCode.RightArrow))
+			{
+				GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
+				GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
+				IsMoving = true;
+			}
+			else if (Input.GetKeyDown (KeyCode.LeftArrow))
+			{
+				GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
+				GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
+				IsMoving = true;
+			}
+			//GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y, -1);
 			IsMoving = false;
 		}
 	}
@@ -149,5 +154,16 @@ public class Stage13PlayerController : MonoBehaviour
 			return true;
 		else
 			return false;
+	}
+
+
+	public Transform GroundCheck;
+	public float GroundCheckRadius;
+	public LayerMask WhatIsGround;
+	private bool Grounded;
+
+	void FixedUpdate()
+	{
+		Grounded = Physics2D.OverlapCircle (GroundCheck.position, GroundCheckRadius, WhatIsGround);
 	}
 }
