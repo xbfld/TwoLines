@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour
         float yv = rb2d.velocity.y - Time.deltaTime * gravity;
         GameObject[] hline = GameObject.FindGameObjectsWithTag("Horizontal Line");
         GameObject[] vline = GameObject.FindGameObjectsWithTag("Vertical Line");
+        Debug.Log(transform.childCount);
         Transform p_tl = transform.GetChild(0);
         Transform p_tr = transform.GetChild(1);
         Transform p_bl = transform.GetChild(2);
@@ -139,7 +140,9 @@ public class PlayerController : MonoBehaviour
         rb = null;
         foreach (var item in hline) // for all hline
         {
+            Debug.Log(item.transform.childCount);
             float y = item.transform.position.y;
+            Debug.Log(item.transform.GetChild(0));
             float left = item.transform.GetChild(0).position.x;
             float right = item.transform.GetChild(1).position.x;
 
