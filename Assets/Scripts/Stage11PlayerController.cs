@@ -69,9 +69,7 @@ public class Stage11PlayerController : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.RightArrow))
 		{
-			StartTime = Time.time;
-			StartXPosition = GetComponent<Transform> ().position.x;
-
+			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
 			GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
 			IsMoving = true;
 		}
