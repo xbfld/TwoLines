@@ -30,8 +30,13 @@ public class BGMManager : MonoBehaviour {
     public void Play(Sounds sounds)
     {
         AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-        audiosource.loop = true;
-        audiosource.clip = SEList[(int)sounds];
-        audiosource.Play();
+        if (audiosource != null)
+        {
+            audiosource.loop = true;
+            audiosource.clip = SEList[(int)sounds];
+            if (audiosource.clip != null)
+                audiosource.Play();
+        }
+
     }
 }

@@ -20,15 +20,19 @@ public class SEManager : MonoBehaviour {
     {
        foreach(AudioClip c in ClipList)
         {
-            AudioSource audiosource = gameObject.AddComponent<AudioSource>();
-            audiosource.loop = false;
-            audiosource.clip = c;
-            SEList.Add(audiosource);
+            if (c != null)
+            {
+                AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+                audiosource.loop = false;
+                audiosource.clip = c;
+                SEList.Add(audiosource);
+            }
         }
     }
 
     public void Play(Sounds sounds)
     {
-        SEList[(int)sounds].Play();
+        if (SEList[(int)sounds] != null)
+            SEList[(int)sounds].Play();
     }
 }
