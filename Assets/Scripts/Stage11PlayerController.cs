@@ -104,7 +104,7 @@ public class Stage11PlayerController : MonoBehaviour
             SeManager.Play(SEManager.Sounds.Move2);
         }
         else if (Input.GetKeyDown(KeyCode.RightBracket)) { SceneManager.LoadScene("Stage 1-2"); }
-        else if (Input.GetKeyDown(KeyCode.R)) { SceneManager.LoadScene("Stage 1-1"); }
+        else if (Input.GetKeyDown(KeyCode.R)) { GetComponent<Transform>().position = new Vector3(4, 2, -1); }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (Arrive()) SceneManager.LoadScene("LevelSelect");
@@ -140,6 +140,7 @@ public class Stage11PlayerController : MonoBehaviour
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y - a - 4, -1);
         SeManager.Play(SEManager.Sounds.Blink);
     }
+    
 
 	public void StopAnimation()
 	{

@@ -142,7 +142,7 @@ public class Stage21PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyDown (KeyCode.LeftBracket)) { SceneManager.LoadScene("Stage 1-3"); }
         else if (Input.GetKeyDown(KeyCode.RightBracket)) { SceneManager.LoadScene("Stage 2-2"); }
-        else if (Input.GetKeyDown(KeyCode.R)) { SceneManager.LoadScene("Stage 2-1"); }
+        else if (Input.GetKeyDown(KeyCode.R)) { GetComponent<Transform>().position = new Vector3(4, 2, -1); }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (Arrive()) SceneManager.LoadScene("LevelSelect");
