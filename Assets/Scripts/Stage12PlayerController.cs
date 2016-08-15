@@ -137,6 +137,7 @@ public class Stage12PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.LeftBracket)) { SceneManager.LoadScene("Stage 1-1"); }
         else if (Input.GetKeyDown(KeyCode.RightBracket)) { SceneManager.LoadScene("Stage 1-3"); }
+        else if (Input.GetKeyDown(KeyCode.R)) { SceneManager.LoadScene("Stage 1-2"); }
         else
 		{
 			IsMoving = false;
