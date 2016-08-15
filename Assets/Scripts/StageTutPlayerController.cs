@@ -27,7 +27,7 @@ public class StageTutPlayerController : MonoBehaviour
         if (IsMovable)
         {
 			if (PosCheck (4, 2) && Input.GetKeyDown (KeyCode.RightArrow))
-				RightTeleportMove (2);
+				RightTeleportMove (6);
 			else if (PosCheck (8, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 				LeftTeleportMove (2);
 			else if (PosCheck (8, 2) && Input.GetKeyDown (KeyCode.UpArrow))
