@@ -6,24 +6,33 @@ public class Stage13PlayerController : MonoBehaviour
 {
 	Animator Anim;
 	bool IsMoving;
+    bool IsClear;
 	float NowTime;
 	float StartTime;
 	float StartXPosition;
 
     SEManager SeManager;
 	Vector3 PlayerPos;
+    Vector3 Dest;
 
 	void Start()
 	{
 		Anim = GetComponent<Animator> ();
         SeManager = GetComponent<SEManager>();
-	}
+        Dest = GameObject.FindGameObjectWithTag("Portal").transform.position;
+    }
 
 	void Update()
 	{
 		PlayerPos = GetComponent<Transform> ().position;
 
-		if (PosCheck (4, 2) && Input.GetKeyDown (KeyCode.RightArrow))
+        if (!IsClear && Arrive())
+        {
+            SeManager.Play(SEManager.Sounds.StageClear);
+            IsClear = true;
+        }
+
+        if (PosCheck (4, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (2);
 		else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
@@ -156,6 +165,10 @@ public class Stage13PlayerController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.LeftBracket)) { SceneManager.LoadScene("Stage 1-2"); }
         else if (Input.GetKeyDown(KeyCode.RightBracket)) { SceneManager.LoadScene("Stage 2-1"); }
         else if (Input.GetKeyDown(KeyCode.R)) { SceneManager.LoadScene("Stage 1-3"); }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (Arrive()) SceneManager.LoadScene("LevelSelect");
+        }
         else
 			IsMoving = false;
 	}
@@ -197,4 +210,6 @@ public class Stage13PlayerController : MonoBehaviour
 		else
 			return false;
 	}
+
+    bool Arrive() { return (PlayerPos.x == Dest.x && PlayerPos.y == Dest.y); }
 }

@@ -7,23 +7,32 @@ public class Stage11PlayerController : MonoBehaviour
 	Animator Anim;
 	bool IsMoving;
     public bool IsMovable { get; set; }
+    bool IsClear;
 	float NowTime;
 	float StartTime;
 	float StartXPosition;
     SEManager SeManager;
 
 	public Vector3 PlayerPos;
+    Vector3 Dest;
 
 	void Start()
 	{
 		Anim = GetComponent<Animator> ();
         SeManager = GetComponent<SEManager>();
         IsMovable = true;
-	}
+        Dest = GameObject.FindGameObjectWithTag("Portal").transform.position;
+    }
 
 	void Update()
 	{
 		PlayerPos = GetComponent<Transform> ().position;
+
+        if (!IsClear && Arrive())
+        {
+            SeManager.Play(SEManager.Sounds.StageClear);
+            IsClear = true;
+        }
 
         if (IsMovable)
         {
@@ -96,6 +105,10 @@ public class Stage11PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.RightBracket)) { SceneManager.LoadScene("Stage 1-2"); }
         else if (Input.GetKeyDown(KeyCode.R)) { SceneManager.LoadScene("Stage 1-1"); }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (Arrive()) SceneManager.LoadScene("LevelSelect");
+        }
         else
         {
             IsMoving = false;
@@ -145,4 +158,6 @@ public class Stage11PlayerController : MonoBehaviour
 		else
 			return false;
 	}
+
+    bool Arrive() { return (PlayerPos.x == Dest.x && PlayerPos.y == Dest.y); }
 }

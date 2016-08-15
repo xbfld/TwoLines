@@ -6,24 +6,33 @@ public class Stage12PlayerController : MonoBehaviour
 {
 	Animator Anim;
 	bool IsMoving;
+    bool IsClear;
 	float NowTime;
 	float StartTime;
 	float StartXPosition;
     SEManager SeManager;
 
     Vector3 PlayerPos;
+    Vector3 Dest;
 
 	void Start()
 	{
 		Anim = GetComponent<Animator> ();
         SeManager = GetComponent<SEManager>();
+        Dest = GameObject.FindGameObjectWithTag("Portal").transform.position;
 	}
 
 	void Update()
 	{
 		PlayerPos = GetComponent<Transform> ().position;
 
-		if (PosCheck (4, 2) && Input.GetKeyDown (KeyCode.RightArrow))
+        if (!IsClear && Arrive())
+        {
+            SeManager.Play(SEManager.Sounds.StageClear);
+            IsClear = true;
+        }
+
+        if (PosCheck (4, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (4);
 		else if (PosCheck (6, 6) && Input.GetKeyDown (KeyCode.RightArrow))
 			Stop ();
@@ -181,4 +190,6 @@ public class Stage12PlayerController : MonoBehaviour
 		else
 			return false;
 	}
+
+    bool Arrive() { return (PlayerPos.x == Dest.x && PlayerPos.y == Dest.y); }
 }
