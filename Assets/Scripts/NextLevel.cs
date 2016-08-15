@@ -8,6 +8,13 @@ public class NextLevel : MonoBehaviour {
     public string settingScene;
     public string levelSelect;
 
+    void Start()
+    {
+        if (PlayerPrefs.GetInt("Tutorial") == 0)
+        {
+            PlayerPrefs.SetInt("Tutorial", 1);
+        }
+    }
     public NextLevel()
     {
         titleScene = "Title";
@@ -27,7 +34,15 @@ public class NextLevel : MonoBehaviour {
 
     public void loadLevelSelect()
     {
-        SceneManager.LoadScene(levelSelect);
+        if (PlayerPrefs.GetInt("Tutorial") == 1)
+        {
+            PlayerPrefs.SetInt("Tutorial", 2);
+            SceneManager.LoadScene("Tutorial");
+        }
+        else
+        {
+            SceneManager.LoadScene(levelSelect);
+        }
     }
 
     public void gotoLevel(string name)
