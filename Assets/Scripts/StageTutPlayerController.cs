@@ -28,28 +28,26 @@ public class StageTutPlayerController : MonoBehaviour
         {
 			if (PosCheck (4, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 				RightTeleportMove (6);
-			else if (PosCheck (8, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
-				LeftTeleportMove (2);
-			else if (PosCheck (8, 2) && Input.GetKeyDown (KeyCode.UpArrow))
+			else if (PosCheck (12, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+				LeftTeleportMove (6);
+			else if (PosCheck (12, 2) && Input.GetKeyDown (KeyCode.UpArrow))
 				UpTeleportMove (4);
-			else if (PosCheck (8, 10) && Input.GetKeyDown (KeyCode.DownArrow))
+			else if (PosCheck (12, 10) && Input.GetKeyDown (KeyCode.DownArrow))
 				DownTeleportMove (4);
-			else if (PosCheck (10, 2) && Input.GetKeyDown (KeyCode.UpArrow))
+			else if (PosCheck (14, 2) && Input.GetKeyDown (KeyCode.UpArrow))
 				UpTeleportMove (4);
-			else if (PosCheck (10, 10) && Input.GetKeyDown (KeyCode.DownArrow))
+			else if (PosCheck (14, 10) && Input.GetKeyDown (KeyCode.DownArrow))
 				DownTeleportMove (4);
-			else if (PosCheck (10, 2) && Input.GetKeyDown (KeyCode.RightArrow))
+			else if (PosCheck (14, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 				Stop ();
-			else if (PosCheck (10, 10) && Input.GetKeyDown (KeyCode.RightArrow))
-				GetComponent<Transform> ().position = new Vector3 (12, 2, -1);
+			else if (PosCheck (14, 10) && Input.GetKeyDown (KeyCode.RightArrow))
+				GetComponent<Transform> ().position = new Vector3 (16, 2, -1);
 			else if (PosCheck (6, 10) && Input.GetKeyDown (KeyCode.LeftArrow))
 				GetComponent<Transform> ().position = new Vector3 (4, 2, -1);
-			else if (PosCheck (12, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
+			else if (PosCheck (16, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 				LeftTeleportMove (4);
-			else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.RightArrow))
+			else if (PosCheck (10, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 				RightTeleportMove (4);
-			else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
-				Stop ();
             else
                 NormalMove();
         }
