@@ -95,6 +95,8 @@ public class Stage12PlayerController : MonoBehaviour
 
 		else if (PosCheck (16, 12) && Input.GetKeyDown (KeyCode.DownArrow))
 			DownTeleportMove (6);
+		else if (PosCheck (18, 12) && Input.GetKeyDown (KeyCode.DownArrow))
+			DownTeleportMove (6);
 		else if (PosCheck (28, 12) && Input.GetKeyDown (KeyCode.DownArrow))
 			DownTeleportMove (6);
 		else if (PosCheck (30, 12) && Input.GetKeyDown (KeyCode.DownArrow))
