@@ -11,7 +11,7 @@ public class Stage11PlayerController : MonoBehaviour
 	float StartXPosition;
     SEManager SeManager;
 
-	Vector3 PlayerPos;
+	public Vector3 PlayerPos;
 
 	void Start()
 	{
