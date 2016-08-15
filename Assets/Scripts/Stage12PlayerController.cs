@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Stage12PlayerController : MonoBehaviour
@@ -134,7 +135,8 @@ public class Stage12PlayerController : MonoBehaviour
 			IsMoving = true;
             SeManager.Play(SEManager.Sounds.Move2);
         }
-		else
+        else if (Input.GetKeyDown(KeyCode.RightBracket)) { SceneManager.LoadScene("Stage 1-3"); }
+        else
 		{
 			IsMoving = false;
 		}
