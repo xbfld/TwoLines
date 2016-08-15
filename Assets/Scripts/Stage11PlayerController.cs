@@ -5,7 +5,7 @@ public class Stage11PlayerController : MonoBehaviour
 {
 	Animator Anim;
 	bool IsMoving;
-    bool IsMovable { get; set; }
+    public bool IsMovable { get; set; }
 	float NowTime;
 	float StartTime;
 	float StartXPosition;
@@ -17,8 +17,6 @@ public class Stage11PlayerController : MonoBehaviour
 	{
 		Anim = GetComponent<Animator> ();
         SeManager = GetComponent<SEManager>();
-        if (SeManager != null) Debug.Log("Component Get");
-        else Debug.Log("Failed to Get SEManager");
         IsMovable = true;
 	}
 
@@ -42,8 +40,8 @@ public class Stage11PlayerController : MonoBehaviour
                 LeftTeleportMove(10);
             else if (PosCheck(26, 2) && Input.GetKeyDown(KeyCode.RightArrow))
                 RightTeleportMove(4);
-			else if (PosCheck(26, 10) && Input.GetKeyDown(KeyCode.LeftArrow))
-				GetComponent<Transform> ().position = new Vector3 (24, 2, -1);
+            else if (PosCheck(26, 10) && Input.GetKeyDown(KeyCode.LeftArrow))
+                GetComponent<Transform>().position = new Vector3(24, 2, -1);
             else if (PosCheck(28, 2) && Input.GetKeyDown(KeyCode.LeftArrow))
                 LeftTeleportMove(2);
             else if (PosCheck(28, 2) && Input.GetKeyDown(KeyCode.UpArrow))
@@ -52,8 +50,8 @@ public class Stage11PlayerController : MonoBehaviour
                 DownTeleportMove(4);
             else if (PosCheck(30, 2) && Input.GetKeyDown(KeyCode.UpArrow))
                 UpTeleportMove(4);
-			else if (PosCheck(30, 10) && Input.GetKeyDown(KeyCode.RightArrow))
-				GetComponent<Transform> ().position = new Vector3 (32, 2, -1);
+            else if (PosCheck(30, 10) && Input.GetKeyDown(KeyCode.RightArrow))
+                GetComponent<Transform>().position = new Vector3(32, 2, -1);
             else if (PosCheck(30, 10) && Input.GetKeyDown(KeyCode.DownArrow))
                 DownTeleportMove(4);
             else if (PosCheck(30, 2) && Input.GetKeyDown(KeyCode.RightArrow))
@@ -73,6 +71,7 @@ public class Stage11PlayerController : MonoBehaviour
             else
                 NormalMove();
         }
+        else Anim.SetBool("Move", IsMoving);
 	}
 
 	void NormalMove()
@@ -126,9 +125,15 @@ public class Stage11PlayerController : MonoBehaviour
         SeManager.Play(SEManager.Sounds.Blink);
     }
 
-	void Stop()
+	public void StopAnimation()
 	{
+        IsMoving = false;
 	}
+
+    void Stop()
+    {
+
+    }
 
 	bool PosCheck(int a, int b)
 	{

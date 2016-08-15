@@ -5,18 +5,23 @@ public class GameStateManager : MonoBehaviour {
 
     Vector3 PlayerPos;
     Vector3 PortalPos;
+    Stage11PlayerController player;
 	
 	void Start () {
-	
+        player = FindObjectOfType<Stage11PlayerController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         
-        PlayerPos = FindObjectOfType<Stage11PlayerController>().PlayerPos;
+        PlayerPos = player.PlayerPos;
         PortalPos = GameObject.FindGameObjectWithTag("Portal").transform.position;
 
-        if (PlayerPos == PortalPos) Debug.Log("Stage Clear!");
+        if (PlayerPos.x == PortalPos.x && PlayerPos.y == PortalPos.y)
+        {
+            player.IsMovable = false;
+            player.StopAnimation();
+        }
     }
     
 }

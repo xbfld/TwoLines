@@ -23,7 +23,6 @@ public class BGMManager : MonoBehaviour {
         else if (scenename == "Stage 2-1" || scenename == "Stage 2-2" || scenename == "Stage 2-3") sound = Sounds.Forest;
         else if (scenename == "Stage 3-1" || scenename == "Stage 3-2" || scenename == "Stage 3-3") sound = Sounds.City;
         else if (scenename == "Title" || scenename == "Settings") sound = Sounds.Title;
-        Debug.Log("BGMMANAGER");
         Play(sound);
     }
 
