@@ -8,12 +8,14 @@ public class Stage12PlayerController : MonoBehaviour
 	float NowTime;
 	float StartTime;
 	float StartXPosition;
+    SEManager SeManager;
 
-	Vector3 PlayerPos;
+    Vector3 PlayerPos;
 
 	void Start()
 	{
 		Anim = GetComponent<Animator> ();
+        SeManager = GetComponent<SEManager>();
 	}
 
 	void Update()
@@ -123,13 +125,15 @@ public class Stage12PlayerController : MonoBehaviour
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
 			GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
 			IsMoving = true;
-		}
+            SeManager.Play(SEManager.Sounds.Move1);
+        }
 		else if (Input.GetKeyDown (KeyCode.LeftArrow))
 		{
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
 			GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
 			IsMoving = true;
-		}
+            SeManager.Play(SEManager.Sounds.Move2);
+        }
 		else
 		{
 			IsMoving = false;
@@ -140,23 +144,27 @@ public class Stage12PlayerController : MonoBehaviour
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + a + 2, PlayerPos.y, -1);
 		GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
-	}
+        SeManager.Play(SEManager.Sounds.Blink);
+    }
 
 	void LeftTeleportMove(int a)
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - a - 2, PlayerPos.y, -1);
 		GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
-	}
+        SeManager.Play(SEManager.Sounds.Blink);
+    }
 
 	void UpTeleportMove(int a)
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y + a + 4, -1);
-	}
+        SeManager.Play(SEManager.Sounds.Blink);
+    }
 
 	void DownTeleportMove(int a)
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y - a - 4, -1);
-	}
+        SeManager.Play(SEManager.Sounds.Blink);
+    }
 
 	void Stop()
 	{
