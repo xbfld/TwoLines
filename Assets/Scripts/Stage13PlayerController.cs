@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Stage13PlayerController : MonoBehaviour
@@ -9,11 +10,13 @@ public class Stage13PlayerController : MonoBehaviour
 	float StartTime;
 	float StartXPosition;
 
+    SEManager SeManager;
 	Vector3 PlayerPos;
 
 	void Start()
 	{
 		Anim = GetComponent<Animator> ();
+        SeManager = GetComponent<SEManager>();
 	}
 
 	void Update()
@@ -39,7 +42,7 @@ public class Stage13PlayerController : MonoBehaviour
 		else if (PosCheck (30, 12) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (2);
 		else if (PosCheck (34, 2) && Input.GetKeyDown (KeyCode.RightArrow))
-			RightTeleportMove (10);
+			Stop ();
 		else if (PosCheck (34, 12) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (12);
 		else if (PosCheck (38, 2) && Input.GetKeyDown (KeyCode.RightArrow))
@@ -60,7 +63,6 @@ public class Stage13PlayerController : MonoBehaviour
 			RightTeleportMove (4);
 		else if (PosCheck (62, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			Stop ();
-
 		else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			Stop ();
 		else if (PosCheck (6, 10) && Input.GetKeyDown (KeyCode.LeftArrow))
@@ -77,8 +79,12 @@ public class Stage13PlayerController : MonoBehaviour
 			LeftTeleportMove (12);
 		else if (PosCheck (26, 8) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (4);
+		else if (PosCheck (26, 12) && Input.GetKeyDown (KeyCode.LeftArrow))
+			GetComponent<Transform> ().position = new Vector3 (24, 8, -1);
 		else if (PosCheck (28, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (4);
+		else if (PosCheck (34, 12) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (2);
 		else if (PosCheck (36, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (8);
 		else if (PosCheck (42, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
@@ -138,14 +144,19 @@ public class Stage13PlayerController : MonoBehaviour
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
 			GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
 			IsMoving = true;
+            SeManager.Play(SEManager.Sounds.Move1);
 		}
 		else if (Input.GetKeyDown (KeyCode.LeftArrow))
 		{
 			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
 			GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
 			IsMoving = true;
-		}
-		else
+            SeManager.Play(SEManager.Sounds.Move2);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftBracket)) { SceneManager.LoadScene("Stage 1-2"); }
+        else if (Input.GetKeyDown(KeyCode.RightBracket)) { SceneManager.LoadScene("Stage 2-1"); }
+        else if (Input.GetKeyDown(KeyCode.R)) { SceneManager.LoadScene("Stage 1-3"); }
+        else
 			IsMoving = false;
 	}
 
@@ -153,23 +164,27 @@ public class Stage13PlayerController : MonoBehaviour
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + a + 2, PlayerPos.y, -1);
 		GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
-	}
+        SeManager.Play(SEManager.Sounds.Blink);
+    }
 
 	void LeftTeleportMove(int a)
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - a - 2, PlayerPos.y, -1);
 		GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
-	}
+        SeManager.Play(SEManager.Sounds.Blink);
+    }
 
 	void UpTeleportMove(int a)
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y + a + 4, -1);
-	}
+        SeManager.Play(SEManager.Sounds.Blink);
+    }
 
 	void DownTeleportMove(int a)
 	{
 		GetComponent<Transform> ().position = new Vector3 (PlayerPos.x, PlayerPos.y - a - 4, -1);
-	}
+        SeManager.Play(SEManager.Sounds.Blink);
+    }
 
 	void Stop()
 	{

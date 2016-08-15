@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Stage11PlayerController : MonoBehaviour
@@ -79,24 +80,26 @@ public class Stage11PlayerController : MonoBehaviour
 
 		Anim.SetBool ("Move", IsMoving);
 
-		if (Input.GetKeyDown (KeyCode.RightArrow))
-		{
-			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x + 2, PlayerPos.y, -1);
-			GetComponent<Transform> ().rotation = new Quaternion (0, 0, 0, GetComponent<Transform> ().rotation.w);
-			IsMoving = true;
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            GetComponent<Transform>().position = new Vector3(PlayerPos.x + 2, PlayerPos.y, -1);
+            GetComponent<Transform>().rotation = new Quaternion(0, 0, 0, GetComponent<Transform>().rotation.w);
+            IsMoving = true;
             SeManager.Play(SEManager.Sounds.Move1);
-		}
-		else if (Input.GetKeyDown (KeyCode.LeftArrow))
-		{
-			GetComponent<Transform> ().position = new Vector3 (PlayerPos.x - 2, PlayerPos.y, -1);
-			GetComponent<Transform> ().rotation = new Quaternion (0, 180, 0, GetComponent<Transform> ().rotation.w);
-			IsMoving = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            GetComponent<Transform>().position = new Vector3(PlayerPos.x - 2, PlayerPos.y, -1);
+            GetComponent<Transform>().rotation = new Quaternion(0, 180, 0, GetComponent<Transform>().rotation.w);
+            IsMoving = true;
             SeManager.Play(SEManager.Sounds.Move2);
         }
-		else
-		{
-			IsMoving = false;
-		}
+        else if (Input.GetKeyDown(KeyCode.RightBracket)) { SceneManager.LoadScene("Stage 1-2"); }
+        else if (Input.GetKeyDown(KeyCode.R)) { SceneManager.LoadScene("Stage 1-1"); }
+        else
+        {
+            IsMoving = false;
+        }
 	}
 
 	void RightTeleportMove(int a)
