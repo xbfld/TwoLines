@@ -51,9 +51,9 @@ public class Stage22PlayerController : MonoBehaviour
 				GetComponent<Transform> ().position = new Vector3 (30, 4, -1);
 			else if (PosCheck (30, 4) && Input.GetKeyDown (KeyCode.RightArrow))
 				Stop ();
-			else if (PosCheck (34, 2) && Input.GetKeyDown (KeyCode.RightArrow))
-				RightTeleportMove (2);
 			else if (PosCheck (34, 6) && Input.GetKeyDown (KeyCode.RightArrow))
+				RightTeleportMove (2);
+			else if (PosCheck (36, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 				RightTeleportMove (2);
 			else if (PosCheck (36, 6) && Input.GetKeyDown (KeyCode.RightArrow))
 				Stop ();
@@ -65,6 +65,8 @@ public class Stage22PlayerController : MonoBehaviour
 				GetComponent<Transform> ().position = new Vector3 (40, 2, -1);
 			else if (PosCheck (38, 10) && Input.GetKeyDown (KeyCode.RightArrow))
 				GetComponent<Transform> ().position = new Vector3 (42, 8, -1);
+			else if (PosCheck (40, 2) && Input.GetKeyDown (KeyCode.RightArrow))
+				Stop ();
 			else if (PosCheck (44, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 				Stop ();
 			else if (PosCheck (46, 8) && Input.GetKeyDown (KeyCode.RightArrow))
@@ -98,6 +100,8 @@ public class Stage22PlayerController : MonoBehaviour
 				LeftTeleportMove (2);
 			else if (PosCheck (40, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 				LeftTeleportMove (2);
+			else if (PosCheck (42, 8) && Input.GetKeyDown (KeyCode.LeftArrow))
+				Stop ();
 			else if (PosCheck (48, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 				Stop ();
 
@@ -128,6 +132,10 @@ public class Stage22PlayerController : MonoBehaviour
 				DownTeleportMove (2);
 			else if (PosCheck (34, 14) && Input.GetKeyDown (KeyCode.DownArrow))
 				DownTeleportMove (8);
+			else if (PosCheck (36, 10) && Input.GetKeyDown (KeyCode.DownArrow))
+				DownTeleportMove (4);
+			else if (PosCheck (38, 10) && Input.GetKeyDown (KeyCode.DownArrow))
+				DownTeleportMove (4);
 			else if (PosCheck (36, 14) && Input.GetKeyDown (KeyCode.DownArrow))
 				DownTeleportMove (4);
 			else if (PosCheck (38, 14) && Input.GetKeyDown (KeyCode.DownArrow))
