@@ -39,7 +39,7 @@ public class Stage13PlayerController : MonoBehaviour
 		else if (PosCheck (30, 12) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (2);
 		else if (PosCheck (34, 2) && Input.GetKeyDown (KeyCode.RightArrow))
-			RightTeleportMove (10);
+			Stop ();
 		else if (PosCheck (34, 12) && Input.GetKeyDown (KeyCode.RightArrow))
 			RightTeleportMove (12);
 		else if (PosCheck (38, 2) && Input.GetKeyDown (KeyCode.RightArrow))
@@ -60,7 +60,6 @@ public class Stage13PlayerController : MonoBehaviour
 			RightTeleportMove (4);
 		else if (PosCheck (62, 2) && Input.GetKeyDown (KeyCode.RightArrow))
 			Stop ();
-
 		else if (PosCheck (6, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			Stop ();
 		else if (PosCheck (6, 10) && Input.GetKeyDown (KeyCode.LeftArrow))
@@ -77,8 +76,12 @@ public class Stage13PlayerController : MonoBehaviour
 			LeftTeleportMove (12);
 		else if (PosCheck (26, 8) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (4);
+		else if (PosCheck (26, 12) && Input.GetKeyDown (KeyCode.LeftArrow))
+			GetComponent<Transform> ().position = new Vector3 (24, 8, -1);
 		else if (PosCheck (28, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (4);
+		else if (PosCheck (34, 12) && Input.GetKeyDown (KeyCode.LeftArrow))
+			LeftTeleportMove (2);
 		else if (PosCheck (36, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
 			LeftTeleportMove (8);
 		else if (PosCheck (42, 2) && Input.GetKeyDown (KeyCode.LeftArrow))
